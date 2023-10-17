@@ -1,0 +1,20 @@
+# config and dependencies folders
+/bootstrap
+/build
+/cgi-bin
+/ckeditor
+/env
+/export
+/img
+/infile_report
+/job_file
+/papers
+/pdftotext
+/public
+/storage
+/vendor
+/uploads
+
+# environment config files
+.env
+.htaccess
