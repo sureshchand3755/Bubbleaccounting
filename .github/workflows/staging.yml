@@ -1,6 +1,6 @@
-on: 
+on:
     push:
-        branches: 
+        branches:
             - develop
 name: 🚀 Deploy website on push
 jobs:
@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
-    
+
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
