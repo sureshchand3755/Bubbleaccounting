@@ -538,8 +538,8 @@ body{
 }
 #invoice_expand_wrapper{
   margin-top:20px !important;
-  height:300px;
-  max-height: 300px;
+  height:250px;
+  max-height: 250px;
   overflow-y: scroll;
 }
 .transaction_table_div{
@@ -549,6 +549,9 @@ body{
 }
  .transaction_table > thead > tr > th{
   padding: 11px !important;
+ }
+ #invoice_expand thead tr th, #invoice_expand tbody tr td{
+  padding: 10px;
  }
 </style>
 <script src="<?php echo URL::to('public/assets/ckeditor/ckeditor.js'); ?>"></script>
@@ -754,7 +757,7 @@ body{
   <div class="row" style="margin-top:25px;">
     <div class="col-md-12" id="load_table_clients" style="margin-top: 176px; padding: 0px; height:182px; overflow:auto;">
     </div>  
-    <a href="javascript:" class="common_black_button build_full_statement" style="display: none;float:left; margin-bottom: 10px;margin-top:10px">Build Full Statement</a>    
+    <a href="javascript:" class="common_black_button build_full_statement" style="display: none;float:left; margin-bottom: 10px;margin-top:10px;margin-left: 24px;">Build Full Statement</a>    
   </div>
   <div class="row" style="display:none;padding:0px 20px;" id="invoice_div_new">
     <div class="col-md-6" style="padding:0px"> <!-- ;min-height:200px;max-height:500px; overflow-y:scroll; -->
@@ -762,7 +765,7 @@ body{
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade active in" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
           <div class="col-md-12" style="margin-top:10px;padding:0px">
-            <input type="radio" name="invoice_date_option" class="invoice_date_option" id="invoice_date_option_1" value="1" style="width:0px"><label for="invoice_date_option_1">Year</label>
+            <input type="radio" name="invoice_date_option" class="invoice_date_option" id="invoice_date_option_1" value="1" style="width:0px"><label for="invoice_date_option_1" style="margin-left: 0px;">Year</label>
             <input type="radio" name="invoice_date_option" class="invoice_date_option" id="invoice_date_option_2" value="2"><label for="invoice_date_option_2">All Invoice</label>
             <input type="radio" name="invoice_date_option" class="invoice_date_option" id="invoice_date_option_3" value="3"><label for="invoice_date_option_3">Custom Date</label>
             <br/><br/>

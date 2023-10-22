@@ -729,4 +729,189 @@ class FacilityController extends Controller
 
         echo $output;
     }
+    public function default_nominal_codes(Request $request) {
+        $facility = \App\Models\Facility::first();
+        $nominal_codes = DB::table('nominal_codes_defaultcodes')->where('practice_code',$facility->practice_code)->get();
+        return view("facility/default_nominal_codes", [
+            "nominal_codes" => $nominal_codes
+        ]);
+    }
+    public function add_nominal_code_financial(Request $request)
+    {
+        $code = $request->get('code');
+        $description = $request->get('description');
+        $primary = $request->get('primary');
+        $debit = $request->get('debit');
+        $credit = $request->get('credit');
+        $data['code'] = $code;
+        $data['description'] = $description;
+        $data['primary_group'] = $primary;
+
+        if($primary == "Profit & Loss") {
+            $data['debit_group'] = $debit;
+            $data['credit_group'] = $debit;
+        }
+        else{
+            $data['debit_group'] = $debit;
+            $data['credit_group'] = $credit;
+        }
+
+        $already = DB::table('nominal_codes_defaultcodes')->where('code',$code)->first();
+        if($already) {
+            DB::table('nominal_codes_defaultcodes')->where('id',$already->id)->update($data);
+            $table_type = 1;
+        }
+        else {
+            $facility = \App\Models\Facility::first();
+            $data['practice_code'] = $facility->practice_code;
+            DB::table('nominal_codes_defaultcodes')->insert($data);
+            $table_type = 0;
+        }
+
+        $nominal_codes = DB::table('nominal_codes_defaultcodes')->orderBy('code','asc')->get();
+        $output = '<option value="">Select Nominal Code</option>';
+        if(($nominal_codes)) {
+          foreach($nominal_codes as $code){
+            $output.='<option value="'.$code->code.'" data-element="'.$code->id.'">'.$code->code.' - '.$code->description.'</option>';
+          }
+        }
+        echo json_encode(array("code" => $code,"description" => $description, "primary" => $primary,"debit" => $debit,"credit" => $credit,"table_type" => $table_type,'dropdown_output' => $output));
+    }
+    public function copy_nominal_codes(Request $request) {
+        $original = DB::table('nominal_codes')->where('type',0)->get();
+        if(($original)) {
+            foreach ($original as $key => $datavalue) {
+
+                $data['code'] = $datavalue->code;
+                $data['description'] = $datavalue->description;
+                $data['primary_group'] = $datavalue->primary_group;
+                $data['debit_group'] = $datavalue->debit_group;
+                $data['credit_group'] = $datavalue->credit_group;
+                $data['practice_code'] = 'BUB';
+
+                DB::table('nominal_codes_defaultcodes')->insert($data);
+            }
+        }
+        return redirect::back()->with('message','Nominal Code Fetched');
+    }
+    public function populate_nominal_code(Request $request) {
+        $facility = \App\Models\Facility::first();
+        $default_codes = DB::table('nominal_codes_defaultcodes')->where('practice_code',$facility->practice_code)->get();
+        $practices = DB::table('practices')->get();
+        if(is_countable($practices) && count($practices) > 0) {
+            foreach($practices as $practice) {
+                $practice_code = $practice->practice_code;
+                if(is_countable($default_codes) && count($default_codes) > 0){
+                    foreach($default_codes as $code) {
+                        $check_nominal_code = DB::table('nominal_codes')->where('practice_code',$practice_code)->where('code',$code->code)->first();
+                        if(!$check_nominal_code) {
+                            $datacode['code'] = $code->code;
+                            $datacode['description'] = $code->description;
+                            $datacode['primary_group'] = $code->primary_group;
+                            $datacode['debit_group'] = $code->debit_group;
+                            $datacode['credit_group'] = $code->credit_group;
+                            $datacode['type'] = 0;
+                            $datacode['practice_code'] = $practice_code;
+
+                            DB::table('nominal_codes')->insert($datacode);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public function edit_nominal_code_finance(Request $request)
+    {
+        $code = $request->get('code');
+        $facility = \App\Models\Facility::first();
+        $get_codes = DB::table('nominal_codes_defaultcodes')->where('practice_code',$facility->practice_code)->where('code',$code)->first();
+        if($get_codes)
+        {
+            $data['code'] = $get_codes->code;
+            $data['description'] = $get_codes->description;
+            $data['primary'] = $get_codes->primary_group;
+            $data['debit'] = $get_codes->debit_group;
+            $data['credit'] = $get_codes->credit_group;
+            echo json_encode($data);
+        }
+    }
+    public function categories(Request $request)
+    {
+        $facility = \App\Models\Facility::first();
+        $categories = DB::table('ai_accrep_category_default')->where('practice_code',$facility->practice_code)->get();
+        return view('facility/report_categories', array('title' => 'Report Categories', 'categorieslist' => $categories));
+    }
+    public function addcategory(Request $request){
+        $name = $request->get('name');
+        $status = $request->get('category_status');
+        $facility = \App\Models\Facility::first();
+        DB::table('ai_accrep_category_default')->insert(['categoryname' => $name,'status' => $status, 'practice_code' => $facility->practice_code]);
+        return redirect::back()->with('message','Category Added Successfully');
+    }
+    public function editcategory(Request $request, $id=""){
+        $id = base64_decode($id);
+        $result = DB::table('ai_accrep_category_default')->where('id', $id)->first();
+        echo json_encode(array('categoryname' => $result->categoryname, 'status' => $result->status, 'id' => $result->id));
+    }
+
+    public function updatecategory(Request $request){
+        $name = $request->get('name');
+        $status = $request->get('category_status');
+        $id = $request->get('id');
+        DB::table('ai_accrep_category_default')->where('id', $id)->update(['categoryname' => $name,'status' => $status]);
+        return redirect::back()->with('message','Category Updated Successfully');
+    }
+    public function deactivecategory(Request $request, $id=""){
+        $id = base64_decode($id);
+        $deactive =  1;
+        DB::table('ai_accrep_category_default')->where('id', $id)->update(['status' => $deactive ]);
+        return redirect::back()->with('message','Category Deactived Successfully');
+    }
+    public function activecategory(Request $request, $id=""){
+        $id = base64_decode($id);
+        $active =  0;
+        DB::table('ai_accrep_category_default')->where('id', $id)->update(['status' => $active ]);
+        return redirect::back()->with('message','Category Activated Successfully');
+    }
+
+    public function subcategories(Request $request)
+    {
+        $facility = \App\Models\Facility::first();
+        $categories = DB::table('ai_accrep_category_default')->where('practice_code',$facility->practice_code)->where('status',0)->get();
+        $subcategories = DB::table('ai_accrep_subcategory_default')->where('practice_code',$facility->practice_code)->get();
+        return view('facility/subcategories', array('title' => 'Category Sub Sections', 'subcategorieslist' => $subcategories, 'categories' => $categories));
+    }
+    public function addsubcategory(Request $request){
+        $name = $request->get('name');
+        $cat_id = $request->get('cat_id');
+        $status = $request->get('status');
+        $facility = \App\Models\Facility::first();
+        DB::table('ai_accrep_subcategory_default')->insert(['name' => $name,'category_id' => $cat_id,'status' => $status, 'practice_code' => $facility->practice_code]);
+        return redirect::back()->with('message','Sub Category Added Successfully');
+    }
+    public function editsubcategory(Request $request, $id=""){
+        $id = base64_decode($id);
+        $result = DB::table('ai_accrep_subcategory_default')->where('id', $id)->first();
+        echo json_encode(array('name' => $result->name, 'category_id' => $result->category_id, 'status' => $result->status, 'id' => $result->id));
+    }
+    public function updatesubcategory(Request $request){
+        $name = $request->get('name');
+        $cat_id = $request->get('cat_id');
+        $status = $request->get('status');
+        $id = $request->get('id');
+        DB::table('ai_accrep_subcategory_default')->where('id', $id)->update(['name' => $name,'category_id' => $cat_id,'status' => $status]);
+        return redirect::back()->with('message','Sub Category Updated Successfully');
+    }
+    public function deactivesubcategory(Request $request, $id=""){
+        $id = base64_decode($id);
+        $deactive =  1;
+        DB::table('ai_accrep_subcategory_default')->where('id', $id)->update(['status' => $deactive]);
+        return redirect::back()->with('message','Sub Category Deactived Successfully');
+    }
+    public function activesubcategory(Request $request, $id=""){
+        $id = base64_decode($id);
+        $active =  0;
+        DB::table('ai_accrep_subcategory_default')->where('id', $id)->update(['status' => $active]);
+        return redirect::back()->with('message','Sub Category Activated Successfully');
+    }
 }

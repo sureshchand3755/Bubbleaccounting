@@ -157,11 +157,11 @@ class StatementController extends Controller {
 						$salutation = $client->salutation;
 					}
 					if($client->send_statement == 1) { $cecked = 'checked'; } else { $cecked = '';  }
-					$invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
-			        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
+					$invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
+			        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
 			        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
-			        $invoice_curr_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','like',$current_monthh.'%')->sum('gross');
-			        $receipt_curr_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$current_monthh.'%')->sum('amount');
+			        $invoice_curr_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','like',$current_monthh.'%')->sum('gross');
+			        $receipt_curr_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$current_monthh.'%')->sum('amount');
 			        $closing_curr_bal = ($closing_bal + $invoice_curr_details) - $receipt_curr_details;
 			        $check_attachment = \App\Models\BuildStatementAttachments::where('client_id',$client_id)->where('month_year',date('m-Y', strtotime($curr_str_month)))->first();
 			    	if(($check_attachment))
@@ -315,11 +315,11 @@ class StatementController extends Controller {
 						$salutation = $client->salutation;
 					}
 					if($client->send_statement == 1) { $cecked = 'checked'; } else { $cecked = '';  }
-					$invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
-			        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
+					$invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
+			        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
 			        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
-			        $invoice_curr_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=',$from_date_inv)->where('invoice_date','<=',$to_date_inv)->sum('gross');
-			        $receipt_curr_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date_inv)->where('receipt_date','<=',$to_date_inv)->sum('amount');
+			        $invoice_curr_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=',$from_date_inv)->where('invoice_date','<=',$to_date_inv)->sum('gross');
+			        $receipt_curr_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date_inv)->where('receipt_date','<=',$to_date_inv)->sum('amount');
 			        $closing_curr_bal = ($closing_bal + $invoice_curr_details) - $receipt_curr_details;
 			        
 			        $check_attachment = \App\Models\BuildStatementAttachments::where('client_id',$client_id)->where('month_year',$month_year)->first();
@@ -766,8 +766,8 @@ class StatementController extends Controller {
 					$dateval = date('m-Y', strtotime('first day of next month', strtotime($opening_bal_month)));
 					$datevall = date('Y-m', strtotime('first day of next month', strtotime($opening_bal_month)));
 					$datevalll = date('M-Y', strtotime('first day of next month', strtotime($opening_bal_month)));
-		            $invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','like',$datevall.'%')->sum('gross');
-			        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$datevall.'%')->sum('amount');
+		            $invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','like',$datevall.'%')->sum('gross');
+			        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$datevall.'%')->sum('amount');
 			        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
 			        if($count == 0)
 		        	{
@@ -910,8 +910,8 @@ class StatementController extends Controller {
 		          $dateval = date('m-Y', strtotime('first day of next month', strtotime($opening_bal_month)));
 		          $datevall = date('Y-m', strtotime('first day of next month', strtotime($opening_bal_month)));
 		          $datevalll = date('M-Y', strtotime('first day of next month', strtotime($opening_bal_month)));
-		            $invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','like',$datevall.'%')->sum('gross');
-			        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$datevall.'%')->sum('amount');
+		            $invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','like',$datevall.'%')->sum('gross');
+			        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$datevall.'%')->sum('amount');
 			        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
 			        $thval = '<th colspan="5" class="text-center" style="border-right:1px solid #d9d9d9">'.$datevalll.'</th>';
 			        array_push($thval_array, $thval);
@@ -1012,8 +1012,8 @@ class StatementController extends Controller {
 				$thval_array = [];
 				$thval_divide_array = [];
 				$tdval_divide_array = [];
-		        $invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','like',date('Y-m', strtotime($opening_bal_month)).'%')->sum('gross');
-		        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',date('Y-m', strtotime($opening_bal_month)).'%')->sum('amount');
+		        $invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','like',date('Y-m', strtotime($opening_bal_month)).'%')->sum('gross');
+		        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',date('Y-m', strtotime($opening_bal_month)).'%')->sum('amount');
 		        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
 		        if($key == 0)
 		        {
@@ -1048,8 +1048,8 @@ class StatementController extends Controller {
 		          	$dateval = date('m-Y', strtotime('first day of next month', strtotime($opening_bal_month)));
 		          	$datevall = date('Y-m', strtotime('first day of next month', strtotime($opening_bal_month)));
 		          	$datevalll = date('M-Y', strtotime('first day of next month', strtotime($opening_bal_month)));
-		            $invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','like',$datevall.'%')->sum('gross');
-			        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$datevall.'%')->sum('amount');
+		            $invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','like',$datevall.'%')->sum('gross');
+			        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$datevall.'%')->sum('amount');
 			        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
 			        if($key == 0)
 		        	{
@@ -1137,7 +1137,7 @@ class StatementController extends Controller {
 			$month = explode('-',$request->get('month'));
 			$monthval = $month[1].'-'.$month[0];
 			$get_title_month = date('M-Y', strtotime($month[1].'-'.$month[0].'-01'));
-			$invoice_details = \App\Models\InvoiceSystem::where('client_id',$client)->where('invoice_date','like',$monthval.'%')->get();
+			$invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client)->where('invoice_date','like',$monthval.'%')->get();
 		}
 		else{
 			$month = explode('_',$request->get('month'));
@@ -1152,7 +1152,7 @@ class StatementController extends Controller {
 				$get_title_month_to = date('M-Y', strtotime($to[1].'-'.$to[0].'-01'));
 				$get_title_month = $get_title_month_from.' - '.$get_title_month_to;
 			}
-			$invoice_details = \App\Models\InvoiceSystem::where('client_id',$client)
+			$invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client)
 				->whereRaw("invoice_date BETWEEN '".$from_monthval."' AND '".$to_monthval."'")->get();
 		}
 		$client_details = \App\Models\CMClients::where('practice_code',Session::get('user_practice_code'))->where('client_id',$client)->first();
@@ -1197,7 +1197,7 @@ class StatementController extends Controller {
 			$month = explode('-',$request->get('month'));
 			$monthval = $month[1].'-'.$month[0];
 			$get_title_month = date('M-Y', strtotime($month[1].'-'.$month[0].'-01'));
-			$receipt_details = \App\Models\receipts::where('client_code',$client)->where('credit_nominal','712')->where('receipt_date','like',$monthval.'%')->get();
+			$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client)->where('credit_nominal','712')->where('receipt_date','like',$monthval.'%')->get();
 		}
 		else{
 			$month = explode('_',$request->get('month'));
@@ -1212,7 +1212,7 @@ class StatementController extends Controller {
 				$get_title_month_to = date('M-Y', strtotime($to[1].'-'.$to[0].'-01'));
 				$get_title_month = $get_title_month_from.' - '.$get_title_month_to;
 			}
-			$receipt_details = \App\Models\receipts::where('client_code',$client)->where('credit_nominal','712')
+			$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client)->where('credit_nominal','712')
 				->whereRaw("receipt_date BETWEEN '".$from_monthval."' AND '".$to_monthval."'")->get();
 		}
 		$client_details = \App\Models\CMClients::where('practice_code',Session::get('user_practice_code'))->where('client_id',$client)->first();
@@ -1398,8 +1398,8 @@ class StatementController extends Controller {
 		}
 		</style>
 		<body>';
-			$invoice_count = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','LIKE', $currrr_month.'%')->count();
-			$receipt_details_count = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')
+			$invoice_count = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','LIKE', $currrr_month.'%')->count();
+			$receipt_details_count = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')
 				->where('receipt_date','like',$currrr_month.'%')->count();
 			if($invoice_count>=$receipt_details_count){
 				$final_count=$invoice_count;
@@ -1490,7 +1490,7 @@ class StatementController extends Controller {
 										<td style="text-align:left">Inv No</td>
 										<td style="text-align:center">€</td>
 									</tr>';
-									$invoices = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','LIKE', $currrr_month.'%')
+									$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','LIKE', $currrr_month.'%')
 										->limit($max_limit)->offset($offset)->get();
 									if(($invoices)){
 										foreach($invoices as $inv){
@@ -1524,7 +1524,7 @@ class StatementController extends Controller {
 										<td style="text-align:left">Date</td>
 										<td style="text-align:center">€</td>
 									</tr>';
-									$receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')
+									$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')
 										->where('receipt_date','like',$currrr_month.'%')
 										->limit($max_limit)->offset($offset)->get();
 									if(($receipt_details))
@@ -1690,7 +1690,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Inv No</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$invoices = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','LIKE', $currrr_month.'%')->get();
+								$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','LIKE', $currrr_month.'%')->get();
 								if(($invoices)){
 									foreach($invoices as $inv){
 										$html.= '<tr>
@@ -1723,7 +1723,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Date</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')
+								$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')
 									->where('receipt_date','like',$currrr_month.'%')->get();
 								if(($receipt_details))
 								{
@@ -1910,8 +1910,8 @@ class StatementController extends Controller {
 		}
 		</style>
 		<body>';		
-		$invoice_count = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>',$date->opening_balance_date)->count();
-		$receipt_details_count = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')
+		$invoice_count = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>',$date->opening_balance_date)->count();
+		$receipt_details_count = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')
 		->where('receipt_date','>',$date->opening_balance_date)->count();
 		if($invoice_count>=$receipt_details_count){
 			$final_count=$invoice_count;
@@ -2002,7 +2002,7 @@ class StatementController extends Controller {
 								<td style="text-align:left">Inv No</td>
 								<td style="text-align:center">€</td>
 							</tr>';
-							$invoices = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>',$date->opening_balance_date)
+							$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>',$date->opening_balance_date)
 								->limit($max_limit)->offset($offset)->orderBy('invoice_date','desc')->get();
 							if(($invoices)){
 								foreach($invoices as $inv){
@@ -2036,7 +2036,7 @@ class StatementController extends Controller {
 								<td style="text-align:left">Date</td>
 								<td style="text-align:center">€</td>
 							</tr>';
-							$receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>',$date->opening_balance_date)
+							$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>',$date->opening_balance_date)
 								->limit($max_limit)->offset($offset)->orderBy('receipt_date','desc')->get();
 							if(($receipt_details))
 							{
@@ -2201,7 +2201,7 @@ class StatementController extends Controller {
 								<td style="text-align:left">Inv No</td>
 								<td style="text-align:center">€</td>
 							</tr>';
-							$invoices = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>',$date->opening_balance_date)
+							$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>',$date->opening_balance_date)
 								->orderBy('invoice_date','desc')->get();
 							if(($invoices)){
 								foreach($invoices as $inv){
@@ -2235,7 +2235,7 @@ class StatementController extends Controller {
 								<td style="text-align:left">Date</td>
 								<td style="text-align:center">€</td>
 							</tr>';
-							$receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>',$date->opening_balance_date)
+							$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>',$date->opening_balance_date)
 								->orderBy('receipt_date','desc')->get();
 							if(($receipt_details))
 							{
@@ -2407,8 +2407,8 @@ class StatementController extends Controller {
 				}
 			</style>
 			<body>';
-			$invoice_count = \App\Models\InvoiceSystem::where('client_id',$c_details->client_id)->where('invoice_date','LIKE', $monSel1.'%')->count();
-			$receipt_details_count = \App\Models\receipts::where('client_code',$c_details->client_id)->where('credit_nominal','712')
+			$invoice_count = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$c_details->client_id)->where('invoice_date','LIKE', $monSel1.'%')->count();
+			$receipt_details_count = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$c_details->client_id)->where('credit_nominal','712')
 				->where('receipt_date','like',$currrr_month.'%')->count();
 			if($invoice_count>=$receipt_details_count){
 				$final_count=$invoice_count;
@@ -2499,7 +2499,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Inv No</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$invoices = \App\Models\InvoiceSystem::where('client_id',$c_details->client_id)->where('invoice_date','LIKE', $monSel1.'%')
+								$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$c_details->client_id)->where('invoice_date','LIKE', $monSel1.'%')
 									->limit($max_limit)->offset($offset)->get();
 								if(($invoices)){
 									foreach($invoices as $inv){
@@ -2533,7 +2533,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Date</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$receipt_details = \App\Models\receipts::where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','like',$currrr_month.'%')
+								$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','like',$currrr_month.'%')
 								->limit($max_limit)->offset($offset)->get();
 								if(($receipt_details))
 								{
@@ -2699,7 +2699,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Inv No</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$invoices = \App\Models\InvoiceSystem::where('client_id',$c_details->client_id)->where('invoice_date','LIKE', $monSel1.'%')->get();
+								$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$c_details->client_id)->where('invoice_date','LIKE', $monSel1.'%')->get();
 								if(($invoices)){
 									foreach($invoices as $inv){
 										$html.= '<tr>
@@ -2732,7 +2732,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Date</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$receipt_details = \App\Models\receipts::where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','like',$currrr_month.'%')->get();
+								$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','like',$currrr_month.'%')->get();
 								if(($receipt_details))
 								{
 									foreach($receipt_details as $receipt)
@@ -2947,11 +2947,11 @@ class StatementController extends Controller {
 					$salutation = $client->salutation;
 				}
 				if($client->send_statement == 1) { $cecked = 'Yes'; } else { $cecked = 'No';  }
-				$invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
-		        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
+				$invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
+		        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
 		        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
-		        $invoice_curr_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','like',$current_monthh.'%')->sum('gross');
-		        $receipt_curr_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$current_monthh.'%')->sum('amount');
+		        $invoice_curr_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','like',$current_monthh.'%')->sum('gross');
+		        $receipt_curr_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','like',$current_monthh.'%')->sum('amount');
 		        $closing_curr_bal = ($closing_bal + $invoice_curr_details) - $receipt_curr_details;
 		        $check_attachment = \App\Models\BuildStatementAttachments::where('client_id',$client_id)->where('month_year',date('m-Y', strtotime($curr_str_month)))->first();
 		    	if(($check_attachment))
@@ -3045,8 +3045,8 @@ class StatementController extends Controller {
 				}
 			</style>
 			<body>';
-			$invoice_count = \App\Models\InvoiceSystem::where('client_id',$c_details->client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->count();
-			$receipt_details_count = \App\Models\receipts::where('client_code',$c_details->client_id)->where('credit_nominal','712')
+			$invoice_count = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$c_details->client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->count();
+			$receipt_details_count = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$c_details->client_id)->where('credit_nominal','712')
 				->where('receipt_date','>=',$from_month)->where('receipt_date','<=', $to_month)->count();
 			if($invoice_count>=$receipt_details_count){
 				$final_count=$invoice_count;
@@ -3137,7 +3137,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Inv No</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$invoices = \App\Models\InvoiceSystem::where('client_id',$c_details->client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)
+								$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$c_details->client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)
 									->limit($max_limit)->offset($offset)->get();
 								if(($invoices)){
 									foreach($invoices as $inv){
@@ -3171,7 +3171,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Date</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$receipt_details = \App\Models\receipts::where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=', $to_month)->limit($max_limit)->offset($offset)->get();
+								$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=', $to_month)->limit($max_limit)->offset($offset)->get();
 								if(($receipt_details))
 								{
 									foreach($receipt_details as $receipt)
@@ -3336,7 +3336,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Inv No</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$invoices = \App\Models\InvoiceSystem::where('client_id',$c_details->client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->get();
+								$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$c_details->client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->get();
 								if(($invoices)){
 									foreach($invoices as $inv){
 										$html.= '<tr>
@@ -3369,7 +3369,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Date</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$receipt_details = \App\Models\receipts::where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=', $to_month)->get();
+								$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$c_details->client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=', $to_month)->get();
 								if(($receipt_details))
 								{
 									foreach($receipt_details as $receipt)
@@ -3588,8 +3588,8 @@ class StatementController extends Controller {
 		}
 		</style>
 		<body>';
-			$invoice_count = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->count();
-			$receipt_details_count = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=',$to_month)->count();
+			$invoice_count = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->count();
+			$receipt_details_count = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=',$to_month)->count();
 			if($invoice_count>=$receipt_details_count){
 				$final_count=$invoice_count;
 			}	
@@ -3679,7 +3679,7 @@ class StatementController extends Controller {
 										<td style="text-align:left">Inv No</td>
 										<td style="text-align:center">€</td>
 									</tr>';
-									$invoices = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->limit($max_limit)->offset($offset)->get();
+									$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=', $from_month)->where('invoice_date','<=', $to_month)->limit($max_limit)->offset($offset)->get();
 									if(($invoices)){
 										foreach($invoices as $inv){
 											$html.= '<tr>
@@ -3712,7 +3712,7 @@ class StatementController extends Controller {
 										<td style="text-align:left">Date</td>
 										<td style="text-align:center">€</td>
 									</tr>';
-									$receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=',$to_month)->limit($max_limit)->offset($offset)->get();
+									$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=',$to_month)->limit($max_limit)->offset($offset)->get();
 									if(($receipt_details))
 									{
 										foreach($receipt_details as $receipt)
@@ -3876,7 +3876,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Inv No</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$invoices = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=',$from_month)->where('invoice_date','<=',$to_month)->get();
+								$invoices = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=',$from_month)->where('invoice_date','<=',$to_month)->get();
 								if(($invoices)){
 									foreach($invoices as $inv){
 										$html.= '<tr>
@@ -3909,7 +3909,7 @@ class StatementController extends Controller {
 									<td style="text-align:left">Date</td>
 									<td style="text-align:center">€</td>
 								</tr>';
-								$receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=',$to_month)->get();
+								$receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month)->where('receipt_date','<=',$to_month)->get();
 								if(($receipt_details))
 								{
 									foreach($receipt_details as $receipt)
@@ -4101,11 +4101,11 @@ class StatementController extends Controller {
 					$salutation = $client->salutation;
 				}
 				if($client->send_statement == 1) { $cecked = 'Yes'; } else { $cecked = 'No';  }
-				$invoice_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
-		        $receipt_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
+				$invoice_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=',$from_date)->where('invoice_date','<=',$to_date)->sum('gross');
+		        $receipt_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_date)->where('receipt_date','<=',$to_date)->sum('amount');
 		        $closing_bal = ($opening_bal + $invoice_details) - $receipt_details;
-		        $invoice_curr_details = \App\Models\InvoiceSystem::where('client_id',$client_id)->where('invoice_date','>=',$from_month_date)->where('invoice_date','<=',$to_month_date)->sum('gross');
-		        $receipt_curr_details = \App\Models\receipts::where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month_date)->where('receipt_date','<=',$to_month_date)->sum('amount');
+		        $invoice_curr_details = \App\Models\InvoiceSystem::where('practice_code', Session::get('user_practice_code'))->where('client_id',$client_id)->where('invoice_date','>=',$from_month_date)->where('invoice_date','<=',$to_month_date)->sum('gross');
+		        $receipt_curr_details = \App\Models\receipts::where('practice_code', Session::get('user_practice_code'))->where('client_code',$client_id)->where('credit_nominal','712')->where('receipt_date','>=',$from_month_date)->where('receipt_date','<=',$to_month_date)->sum('amount');
 		        $closing_curr_bal = ($closing_bal + $invoice_curr_details) - $receipt_curr_details;
 		        $check_attachment = \App\Models\BuildStatementAttachments::where('client_id',$client_id)->where('month_year',date('m-Y', strtotime($from_str_month)).'_'.date('m-Y', strtotime($to_str_month)))->first();
 		    	if(($check_attachment))

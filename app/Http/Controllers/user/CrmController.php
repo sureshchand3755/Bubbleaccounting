@@ -1369,7 +1369,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -1724,7 +1724,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -2335,7 +2335,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -2710,7 +2710,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -3078,7 +3078,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -3484,7 +3484,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -3832,7 +3832,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -4236,7 +4236,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .
@@ -4536,7 +4536,7 @@ class CrmController extends Controller
                     "id",
                     $statement->bank_id
                 )->first();
-                if (is_countable($bank_details)) {
+                if ($bank_details) {
                     $bank_name =
                         $bank_details->bank_name .
                         " " .

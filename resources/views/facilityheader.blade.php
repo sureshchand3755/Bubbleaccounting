@@ -16,6 +16,9 @@
      elseif($page_segment == "system_setting_review") { $title = 'Bubble - System Setting Review'; }
      elseif($page_segment == "manage_cm_paper") { $title = 'Bubble - CMS Print Label'; }
      elseif($page_segment == "manage_cm_class") { $title = 'Bubble - CMS Manage Class'; }
+     elseif($page_segment == "default_nominal_codes") { $title = 'Bubble - Default Nominal Codes'; }
+     elseif($page_segment == "report_categories") { $title = 'Bubble - Report Categories'; }
+     elseif($page_segment == "categories_sub_sections") { $title = 'Bubble - Categories Sub Sections'; }
      else { $title = 'Bubble'; }
      ?>
     <title><?php echo $title; ?></title>
@@ -108,11 +111,31 @@
                         <span class="item">System Settings Review</span>
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo URL::to('facility/default_nominal_codes'); ?>" class="<?php if($page_segment == 'default_nominal_codes') { echo 'active'; } ?>">
+                        <span class="icon"><i class="fas fa-bars"></i></span>
+                        <span class="item">Default Nominal Codes</span>
+                    </a>
+                </li>
                 <li style="position: absolute;bottom: 0px;width: 100%;background: #000;">
                     <a href="<?php echo URL::to('facility/logout'); ?>" style="text-decoration: none">
                         <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
                         <span class="item">Logout</span>
                     </a>
+                </li>
+                <li class="treeview-item">
+                    <a href="javascript:" class="<?php if($page_segment == 'categories' || $page_segment == 'subcategories') { echo 'active'; } ?>">
+                        <span class="icon"><i class="fas fa-bars"></i></span>
+                        <span class="item">AI Accounts Report </span>
+                    </a>
+                    <ul class="treeview-submenu" style="<?php if($page_segment == 'categories' || $page_segment == 'subcategories') { echo ''; } else { echo 'display: none'; } ?>">
+                        <li>
+                            <a href="<?php echo URL::to('facility/categories')?>" class="<?php if($page_segment == 'categories') { echo 'active'; } ?>">Report Categories</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL::to('facility/subcategories')?>" class="<?php if($page_segment == 'subcategories') { echo 'active'; } ?>">Category Sub Sections</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>

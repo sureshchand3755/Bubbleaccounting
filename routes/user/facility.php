@@ -111,6 +111,80 @@ Route::post(
     "/facility/fix_missing_records",
     [FacilityController::class, 'fix_missing_records']
 );
+Route::get(
+    "/facility/default_nominal_codes",
+    [FacilityController::class, 'default_nominal_codes']
+);
+Route::post(
+    "/facility/add_nominal_code_financial",
+    [FacilityController::class, 'add_nominal_code_financial']
+);
+Route::get(
+    "/facility/copy_nominal_codes",
+    [FacilityController::class, 'copy_nominal_codes']
+);
+Route::post(
+    "/facility/populate_nominal_code",
+    [FacilityController::class, 'populate_nominal_code']
+);
+
+Route::post(
+    "/facility/edit_nominal_code_finance",
+    [FacilityController::class, "edit_nominal_code_finance"]
+);
+
+Route::get(
+    "/facility/categories",
+    [FacilityController::class, "categories"]
+);
+Route::post(
+    "/facility/addcategory",
+    [FacilityController::class, "addcategory"]
+);
+Route::post(
+    "/facility/editcategory/{id?}",
+    [FacilityController::class, 'editcategory']
+);
+Route::post(
+    "/facility/updatecategory/",
+    [FacilityController::class, 'updatecategory']
+);
+Route::get(
+    "/facility/deactivecategory/{id?}",
+    [FacilityController::class, 'deactivecategory']
+);
+Route::get(
+    "/facility/activecategory/{id?}",
+    [FacilityController::class, 'activecategory']
+);
+
+
+Route::get(
+    "/facility/subcategories",
+    [FacilityController::class, "subcategories"]
+);
+Route::post(
+    "/facility/addsubcategory",
+    [FacilityController::class, "addsubcategory"]
+);
+Route::post(
+    "/facility/editsubcategory/{id?}",
+    [FacilityController::class, 'editsubcategory']
+);
+Route::post(
+    "/facility/updatesubcategory/",
+    [FacilityController::class, 'updatesubcategory']
+);
+Route::get(
+    "/facility/deactivesubcategory/{id?}",
+    [FacilityController::class, 'deactivesubcategory']
+);
+Route::get(
+    "/facility/activesubcategory/{id?}",
+    [FacilityController::class, 'activesubcategory']
+);
+
+
 
 
 

@@ -347,7 +347,7 @@ class ClientreviewController extends Controller
             '<div class="invoice_expand_tbl" style="width:100%;position:absolute; ' .
             $margin_top .
             '">
-			<p style="position: relative;bottom: 0px;"><input type="checkbox" name="select_all_invoice" class="select_all_invoice" id="select_all_invoice" value=""><label for="select_all_invoice">Select All</label></p>
+			<p style="position: relative;bottom: 0px;"><input type="checkbox" name="select_all_invoice" class="select_all_invoice" id="select_all_invoice" value=""><label for="select_all_invoice" style="margin-left: 0px;">Select All</label></p>
 			<table class="display nowrap fullviewtablelist own_table_white" id="invoice_expand" width="100%" style="margin-bottom:100px !important;">
                 <thead>
                   <tr style="background: #fff;">

@@ -14,6 +14,8 @@
 /storage
 /vendor
 /uploads
+/zip_folder
+/cropimage
 
 # environment config files
 .env

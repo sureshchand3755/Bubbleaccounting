@@ -114,7 +114,8 @@ scrollbar-width: thin;
             }
             ?>
         </select>
-        <input type="button" class="btn btn-primary show_table_viewer" id="show_table_viewer" value="Load Table" style="margin-top:7px; margin-left:10px"> <br/>
+        <input type="button" class="btn btn-primary show_table_viewer" id="show_table_viewer" value="Load Table" style="margin-top:7px; margin-left:10px"> 
+        <input type="button" class="btn btn-primary show_all_table_viewer" id="show_all_table_viewer" value="Load All Table Data" style="margin-top:7px; margin-left:10px"> <br/>
         <textarea name="table_notes" class="form-control table_notes" value="" style="display:none"></textarea>
     </div>
     <div class="col-lg-12">
@@ -210,7 +211,34 @@ function waypointsval() {
      }
   })
 }
-
+function load_all_table_viewer(page) {
+  $(".common_btn").removeClass('load_more_content');
+  $("#load_more_content").hide();
+  var table_name = $(".select_table").val();
+  var nextpage = parseInt(page) + 1;
+  $("body").addClass("loading");
+  $.ajax({
+     url:"<?php echo URL::to('facility/show_table_viewer_append'); ?>",
+     type:"post",
+     dataType:"json",
+     data:{table_name:table_name,page:nextpage},
+     success:function(result){
+       $("#table_viewer_tbody").append(result['output']);
+       if(result['show_load_btn'] == 1){
+         $(".common_btn").addClass('load_more_content');
+         $(".common_btn").show();
+         load_all_table_viewer(nextpage);
+       }
+       else{
+         $(".common_btn").removeClass('load_more_content');
+         $(".common_btn").hide();
+         $("body").removeClass("loading");
+         Waypoint.destroyAll();
+         $(".common_btn").attr("class","common_black_button common_btn");
+       }
+     }
+  })
+}
 
 $(window).click(function(e) {
   if($(e.target).hasClass('show_table_viewer'))
@@ -234,6 +262,30 @@ $(window).click(function(e) {
           }, {
               offset: '100%'
           });
+        }
+      })
+    }
+  }
+  if($(e.target).hasClass('show_all_table_viewer'))
+  {
+    var table_name = $(".select_table").val();
+    if(table_name == ""){
+      alert("Please select the table");
+    }
+    else{
+      $("body").addClass("loading");
+      $.ajax({
+        url:"<?php echo URL::to('facility/show_table_viewer'); ?>",
+        type:"post",
+        dataType:"json",
+        data:{table_name:table_name,page:"1"},
+        success:function(result){
+          $(".table_viewer_content").html(result['output']);
+          $("body").removeClass("loading");
+
+          if($("#load_more_content:visible").length > 0) {
+            load_all_table_viewer(1);
+          }
         }
       })
     }

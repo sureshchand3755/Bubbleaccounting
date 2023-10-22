@@ -1025,7 +1025,6 @@ if(!empty($_GET['import_type_existing']))
   <div class="modal-dialog modal-lg" role="document" style="width:80%">    
     <div class="editsp">
       <div class="modal-content">
-       
           <div class="modal-header" style="border-bottom: 0px;">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title cm_title menu-logo"></h4>
@@ -1286,6 +1285,7 @@ if(!empty($_GET['import_type_existing']))
                         <a href="javascript:" class="deactivate_clients fa fa-check" data-toggle="tooltip" data-placement="top" title="Deactivate This Client"></a> &nbsp; 
                         <a href="javascript:" class="print_clients fa fa-print" data-toggle="tooltip" data-placement="top" title="Print"></a> &nbsp; 
                         <a href="javascript:" class="download_clients fa fa-file-pdf-o" data-toggle="tooltip" data-placement="top" title="PDF"></a>
+                        <a href="javascript:" class="client_portal_link fa fa-user" data-toggle="tooltip" data-placement="top" title="Client Portal"></a>
                       </div>
                   </div>
                 </div>
@@ -1792,6 +1792,10 @@ $(document).ready(function() {
 });
 
 $(window).click(function(e) {
+  if($(e.target).hasClass('client_portal_link')) {
+    var clientid = $(".invoice_client_id").val();
+    window.open('<?php echo URL::to('user/cms_client_portal?client_id='); ?>'+clientid, '_blank');
+  }
   if($(e.target).hasClass('active_client_list_pms'))
   {
     var client_id=$("#client_search_hidden_infile").val();

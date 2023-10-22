@@ -2,7 +2,7 @@ on:
     push:
         branches:
             - develop
-name: 🚀 Deploy website on push
+name: 🚀 Deploy to staging
 jobs:
   web-deploy:
     name: 🎉 Deploy

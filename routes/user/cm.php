@@ -121,3 +121,12 @@ Route::post(
     "/user/mui_icons_for_taskspecifics",
     [CmController::class, "mui_icons_for_taskspecifics"]
 );
+Route::get(
+    "/user/cms_client_portal",
+    [CmController::class, "cms_client_portal"]
+);
+Route::post(
+    "/user/show_messageus_sample_screen_portal",
+    [CmController::class, "show_messageus_sample_screen_portal"]
+);
+
