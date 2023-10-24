@@ -94,6 +94,7 @@ elseif($page_segment == "tracking_project") { $title = 'Bubble - Tracking Projec
 elseif($page_segment == "qba") { $title = 'Bubble - Quick Bank Analysis'; }
 elseif($page_segment == "bank_account_manager") { $title = 'Bubble - Bank Account Manager'; }
 elseif($page_segment == "staff_calendar") { $title = 'Bubble - Staff Calendar'; }
+elseif($page_segment == "allocation_system") { $title = 'Bubble - Allocations System'; }
 else{ $title = 'Bubble'; }
 ?>
 <title><?php echo $title; ?></title>
@@ -2389,7 +2390,7 @@ $vat_rates = DB::table('supplier_vat_rates')->where('practice_code', Session::ge
                     <li class="<?php if(($segment1 == "qba")) { echo "active"; } else { echo ""; } ?>" style="padding-left: 14px;"><a href="<?php echo URL::to('user/qba')?>">QBA</a></li>
                 </ul>
             </li>
-            <li class="dropdown <?php if($segment1 == "client_management" || $segment1 == "invoice_management" || $segment1 == "build_invoice" || $segment1 == "statement_list" || $segment1 == "full_view_statement" || $segment1 == "client_specific_statement" || $segment1 == "receipt_management" || $segment1 == "receipt_settings" || $segment1 == "time_management" || $segment1 == "aml_system" || $segment1 == "opening_balance_manager" || $segment1 == "client_opening_balance_manager" || $segment1 == "import_opening_balance_manager" || $segment1 == "two_bill_manager" || $segment1 == "client_account_review" || $segment1 == "financials" || $segment1 == "supplier_management" || $segment1 == "supplier_invoice_management" || $segment1 == "payment_management" || $segment1 == "audit_trail" || $segment1 == "bubble_mail" || $segment1 == "bank_account_manager" || $segment1 == "staff_calenders") { echo 'active'; } ?>"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Practice Functions <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+            <li class="dropdown <?php if($segment1 == "client_management" || $segment1 == "invoice_management" || $segment1 == "build_invoice" || $segment1 == "statement_list" || $segment1 == "full_view_statement" || $segment1 == "client_specific_statement" || $segment1 == "receipt_management" || $segment1 == "receipt_settings" || $segment1 == "time_management" || $segment1 == "aml_system" || $segment1 == "opening_balance_manager" || $segment1 == "client_opening_balance_manager" || $segment1 == "import_opening_balance_manager" || $segment1 == "two_bill_manager" || $segment1 == "client_account_review" || $segment1 == "financials" || $segment1 == "supplier_management" || $segment1 == "supplier_invoice_management" || $segment1 == "payment_management" || $segment1 == "audit_trail" || $segment1 == "bubble_mail" || $segment1 == "bank_account_manager" || $segment1 == "staff_calenders" || $segment1 == "allocation_system") { echo 'active'; } ?>"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Practice Functions <i class="fa fa-caret-down" aria-hidden="true"></i></a>
                 <ul class="dropdown-menu dropdown-menu-right text-right" style="width: 180%;max-height: 800px;overflow-y: scroll;scrollbar-color: #f2f2f2 #fff;scrollbar-width: thin;">
                     <li class="dropdown-header">
                       Clients
@@ -2410,6 +2411,7 @@ $vat_rates = DB::table('supplier_vat_rates')->where('practice_code', Session::ge
                     <li class="<?php if(($segment1 == "payment_management" || $segment1 == "payment_settings")) { echo "active"; } else { echo ""; } ?>" style="padding-left: 14px;"><a href="<?php echo URL::to('user/payment_management'); ?>">Payment Management</a></li>
                     <li class="twobillmenu <?php if(($segment1 == "two_bill_manager")) { echo "active"; } else { echo ""; } ?>" style="padding-left: 14px;"><a href="javascript:" class="twobillmenu">2Bill Manager</a></li>
                     <li class="<?php if(($segment1 == "statement_list")) { echo "active"; } else { echo ""; } ?>" style="padding-left: 14px;"><a href="<?php echo URL::to('user/statement_list'); ?>">Client Statements</a></li>
+                    <li class="<?php if(($segment1 == "allocation_system")) { echo "active"; } else { echo ""; } ?>" style="padding-left: 14px;"><a href="<?php echo URL::to('user/allocation_system'); ?>">Allocations System</a></li>    
                     <li role="separator" class="divider" style="background: #fff;"></li>
                     <li class="dropdown-header">
                       Practice Financials

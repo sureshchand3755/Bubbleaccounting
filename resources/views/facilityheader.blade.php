@@ -135,6 +135,9 @@
                         <li>
                             <a href="<?php echo URL::to('facility/subcategories')?>" class="<?php if($page_segment == 'subcategories') { echo 'active'; } ?>">Category Sub Sections</a>
                         </li>
+                        <li>
+                            <a href="<?php echo URL::to('facility/output_tones')?>" class="<?php if($page_segment == 'output_tones') { echo 'active'; } ?>">Output Tone</a>
+                        </li>
                     </ul>
                 </li>
             </ul>

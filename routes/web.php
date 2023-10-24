@@ -49,3 +49,4 @@ require_once(__DIR__ . '/user/timeme.php');
 require_once(__DIR__ . '/user/twobill.php');
 require_once(__DIR__ . '/user/yearend.php');
 require_once(__DIR__ . '/user/calendar.php');
+require_once(__DIR__ . '/user/allocations.php');

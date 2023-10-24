@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\facility\FacilityauthenticateController;
 use App\Http\Controllers\facility\FacilityController;
+use App\Http\Controllers\facility\OutputToneController;
 
 Route::get("/facility", [FacilityauthenticateController::class, 'login']);
 Route::post("/facility/login", [FacilityauthenticateController::class, 'postLogin']);
@@ -183,7 +184,13 @@ Route::get(
     "/facility/activesubcategory/{id?}",
     [FacilityController::class, 'activesubcategory']
 );
-
+// Output Tone Module
+Route::get("/facility/output_tones",[OutputToneController::class, "index"]);
+Route::post("/facility/add_output_tone",[OutputToneController::class, "store"]);
+Route::post("/facility/edit_output_tone/{id?}",[OutputToneController::class, "edit"]);
+Route::post("/facility/update_output_tone",[OutputToneController::class, "update"]);
+Route::get("/facility/active_output_tone/{id?}",[OutputToneController::class, "activated"]);
+Route::get("/facility/deactive_output_tone/{id?}",[OutputToneController::class, "deactivated"]);
 
 
 

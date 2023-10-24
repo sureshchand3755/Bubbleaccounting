@@ -18,7 +18,7 @@
     .tablefixedheader {
       text-align: left;
       position: relative;
-      border-collapse: collapse;
+      border-collapse: collapse; 
     }
     .tablefixedheader thead tr th {
       position: sticky;
@@ -87,12 +87,6 @@ border-radius: 10px;
   border: 5px solid green !important;
 }
 .table tbody tr td {border: 0px}
-
-.table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: #eeeeea;
-}
-#message_expand > tbody tr:nth-child(even) {background: #B8E2F2}
-#message_expand > tbody tr:nth-child(odd) {background: #FFF}
 </style>
 <?php
 $user_details = DB::table('user')->where('practice',Session::get('user_practice_code'))->where('user_id',Session::get('userid'))->first();
@@ -110,15 +104,15 @@ if($user_details->cropped_url != "" && $user_details->cropped_filename != ""){
           </div>
           <div class="modal-body">
               <label>Enter Salutation : </label>
-              <div class="form-group">
+              <div class="form-group">            
                   <input class="form-control" name="salutation_module" id="salutation_module" placeholder="Enter Salutation" type="text">
               </div>
               <label>Enter Primary Email : </label>
-              <div class="form-group">
+              <div class="form-group">            
                   <input class="form-control" name="pemail_module" id="pemail_module" placeholder="Enter Primary Email" type="text">
               </div>
               <label>Enter Secondary Email : </label>
-              <div class="form-group">
+              <div class="form-group">            
                   <input class="form-control" name="semail_module" id="semail_module" placeholder="Enter Secondary Email" type="text">
               </div>
           </div>
@@ -138,7 +132,7 @@ if($user_details->cropped_url != "" && $user_details->cropped_filename != ""){
               <h4 class="modal-title menu-logo">MessageUs Summary</h4>
           </div>
           <div class="modal-body" id="show_messageus_body" style="max-height: 600px;height:600px; overflow-y: scroll;">
-
+              
           </div>
           <div class="modal-footer">
               <button type="button" class="common_black_button" data-dismiss="modal" aria-label="Close">Close</button>
@@ -241,7 +235,7 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
     <div class="col-md-6">
         <table class="table">
             <tbody>
-
+              
               <tr>
                 <td rowspan="4" style="width:15%;"><label>Address:</label></td>
                 <td><?php echo $address1; ?></td>
@@ -279,7 +273,7 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
                 <td><label>Tax Reg3:</label></td>
                 <td><?php echo $tax_reg3; ?></td>
               </tr>
-
+              
               <tr>
                 <td><label>Type:</label></td>
                 <td><?php echo $tye; ?></td>
@@ -296,7 +290,7 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
                 <td><label>Link Code:</label></td>
                 <td><?php echo $linkcode; ?></td>
               </tr>
-
+              
               <tr>
                 <td><label>Salutation:</label></td>
                 <td><?php echo $salutation; ?></td>
@@ -307,14 +301,17 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
   </div>
   <div class="col-md-12 padding_00 client_portal_content email_received_content" style="display:none">
     <?php
-
-    $outputmessage = '<table class="table table-dark table-hover"  id="message_expand">
+    
+    $outputmessage = '<table class="table"  id="message_expand">
         <thead>
           <th>#</th>
           <th>Subject</th>
           <th>Message From</th>
           <th>Date Sent</th>
+          <th>Source</th>
+          <th>Body</th>
           <th>Attachments</th>
+          <th>VIEW</th>
         </thead>
         <tbody>';
     $messageus = \App\Models\Messageus::where('practice_code',Session::get('user_practice_code'))->where("status", 1)->where("client_ids", "LIKE", "%" . $_GET['client_id'] . "%")->orderBy('id','desc')->get();
@@ -361,26 +358,29 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
               <td>' .
                 $i .
                 '</td>
-              <td><a href="javascript:" class="view_message" title="View Message" data-element="' .
-                  $message->id .
-                  '" style="margin-left:20px">' .
+              <td>' .
                 $message->subject .
-                '</a></td>
-              <td><a href="javascript:" class="view_message" title="View Message" data-element="' .
-                  $message->id .
-                  '" style="margin-left:20px">' .
+                '</td>
+              <td>' .
                 $mess_from .
-                '</a></td>
-              <td><a href="javascript:" class="view_message" title="View Message" data-element="' .
-                  $message->id .
-                  '" style="margin-left:20px">' .
+                '</td>
+              <td>' .
                 date("d-M-Y @ H:i", strtotime($message->date_sent)) .
-                '</a></td>
-              <td><a href="javascript:" class="view_message" title="View Message" data-element="' .
-                  $message->id .
-                  '" style="margin-left:20px">' .
+                '</td>
+              <td>' .
+                $source .
+                '</td>
+              <td>' .
+                $mess .
+                '</td>
+              <td>' .
                 $count_files .
-                '</a></td>
+                '</td>
+              <td>
+                ' .
+                $link .
+                '
+              </td>
             </tr>';
             $i++;
         }
@@ -397,7 +397,7 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
   <div class="col-md-12 padding_00 client_portal_content coms_content" style="display:none">
     <?php
     $i = 1;
-
+    
     $current_week = \App\Models\week::where('practice_code', Session::get('user_practice_code'))->orderBy("week_id", "desc")->first();
     $current_month = \App\Models\Month::where('practice_code', Session::get('user_practice_code'))->orderBy("month_id", "desc")->first();
     $week_tasks = \App\Models\task::where("client_id", $_GET['client_id'])
@@ -408,16 +408,7 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
         ->get();
     $vats =\App\Models\vatClients::where("cm_client_id", $_GET['client_id'])->get();
     $statement = \App\Models\ClientStatement::where("client_id",$_GET['client_id'])->first();
-    $outputmodule = '
-    <div class="select_button" style=" margin-left: 10px;">
-        <ul>
-            <li style="float:right">
-                <a href="javascript:" class="addclientbutton infiles_portal" style="font-weight: 600;" data-toggle="modal" data-target=".bs-example-modal-sm">My Infiles</a>
-            </li>
-        </ul>
-    </div>
-
-    <table class="table" id="module_expand">
+    $outputmodule = '<table class="table" id="module_expand">
       <thead>
           <th style="text-align:left">#</th>
           <th style="text-align:left">Module</th>
@@ -496,39 +487,12 @@ $result = \App\Models\CMClients::where("practice_code",Session::get("user_practi
     ?>
   </div>
   <div class="col-md-12 padding_00 client_portal_content key_documents_content" style="display:none">
-    @include('user.cm.key_documents_content')
+      <h4 style="color:#f00">Functionality for this section will be implemented in the future.</h4>
   </div>
-  <div class="col-md-12 padding_00 client_portal_content infiles_portal" style="display:none">
-    @include('user.cm.infiles_portal')
-  </div>
-
 </div>
 
 <script>
-$(document).ready(function() {
-    $("#message_expand").dataTable().fnDestroy();
-    $("#module_expand").dataTable().fnDestroy();
-});
 $(window).click(function(e) {
-    console.log(e.target,"#####")
-    $('#message_expand').DataTable({
-        autoWidth: true,
-        scrollX: false,
-        fixedColumns: false,
-        searching: false,
-        paging: false,
-        retrieve:true,
-        info: false
-    });
-    $('#module_expand').DataTable({
-        autoWidth: true,
-        scrollX: false,
-        fixedColumns: false,
-        searching: false,
-        paging: false,
-        retrieve:true,
-        info: false
-    });
   if($(e.target).hasClass('view_message'))
   {
     var message_id = $(e.target).attr("data-element");
@@ -542,11 +506,6 @@ $(window).click(function(e) {
         $("#show_messageus_body").html(result);
       }
     })
-  }
-  if($(e.target).hasClass('infiles_portal'))
-  {
-    $(".client_portal_content").hide();
-    $(".infiles_portal").show();
   }
   if($(e.target).hasClass('edit_task_module'))
   {

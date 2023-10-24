@@ -57,7 +57,7 @@ body.loading_bpso .modal_load_bpso {
 .dmenu {
   position: absolute;
   top: -40px;
-  left: 112px;
+  left: -198px;
 }
 </style>
 <?php

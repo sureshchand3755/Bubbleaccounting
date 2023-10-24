@@ -177,7 +177,7 @@ class CmController extends Controller
                     $output .= "</tr><tr>";
                 }
                 $output .=
-                    '<td>
+                    '<td> 
               		<label>' .
                     $field->name .
                     ' : </label>
@@ -1705,7 +1705,7 @@ class CmController extends Controller
                     $worksheetTitle = $worksheet->getTitle();
                     $highestRow = $worksheet->getHighestRow(); // e.g. 10
                     $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-
+                    
                     $nrColumns = ord($highestColumn) - 64;
                     if ($highestRow > 50) {
                         $height = 50;
@@ -1975,7 +1975,7 @@ class CmController extends Controller
             $worksheetTitle = $worksheet->getTitle();
             $highestRow = $worksheet->getHighestRow(); // e.g. 10
             $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-
+            
             $nrColumns = ord($highestColumn) - 64;
             $round = $request->get("round");
             $last_height = $request->get("height");
@@ -2146,7 +2146,7 @@ class CmController extends Controller
                     $worksheetTitle = $worksheet->getTitle();
                     $highestRow = $worksheet->getHighestRow(); // e.g. 10
                     $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-
+                    
                     $nrColumns = ord($highestColumn) - 64;
                     if ($highestRow > 50) {
                         $height = 50;
@@ -2420,7 +2420,7 @@ class CmController extends Controller
             $worksheetTitle = $worksheet->getTitle();
             $highestRow = $worksheet->getHighestRow(); // e.g. 10
             $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-
+            
             $nrColumns = ord($highestColumn) - 64;
             $round = $request->get("round");
             $last_height = $request->get("height");
@@ -2623,7 +2623,7 @@ class CmController extends Controller
                     $output .= "</tr><tr>";
                 }
                 $output .=
-                    '<td>
+                    '<td> 
           		<label>' .
                     $field->name .
                     ' : </label>
@@ -2761,9 +2761,9 @@ class CmController extends Controller
                 <thead>
                   <tr style="background: #fff;">
                       <th style="text-align: left;" width="10%">S.No</th>
-                      <th style="text-align: left;">Task Name</th>
+                      <th style="text-align: left;">Task Name</th>                     
                   </tr>
-                </thead>
+                </thead>                            
                 <tbody>
         ';
         if (count($timetasklist)) {
@@ -2796,7 +2796,7 @@ class CmController extends Controller
                       <th style="text-align: left;">Email Sent</th>
                       <th style="text-align: left;">When the Task is Marked Complete</th>
                   </tr>
-                </thead>
+                </thead>                            
                 <tbody>';
         $i = 1;
         if (count($payrolllist)) {
@@ -2860,7 +2860,7 @@ class CmController extends Controller
             $output_payroll .=
                 "<tr><td></td><td></td><td>Empty</td><td></td><td></td><td></td></tr>";
         }
-        $output_payroll .= '
+        $output_payroll .= '                
                 </tbody>
             </table>';
         $aml_bank_list = \App\Models\AmlBank::where("client_id", $result->client_id)->get();
@@ -3161,9 +3161,9 @@ class CmController extends Controller
                       <th style="text-align: right;width: 15%;">Net</th>
                       <th style="text-align: right;width: 15%;">VAT</th>
                       <th style="text-align: right;width: 15%;">Gross</th>
-                      <th style="text-align: left;width: 11%;">Statement</th>
+                      <th style="text-align: left;width: 11%;">Statement</th>                      
                   </tr>
-                </thead>
+                </thead>                            
                 <tbody>';
         $i = 1;
         if (count($invoicelist)) {
@@ -3211,7 +3211,7 @@ class CmController extends Controller
                     '</td>
 						<td align="right">' .
                     number_format_invoice($invoice->gross) .
-                    '</td>
+                    '</td>			
 						<td style="' .
                     $textcolor .
                     '">
@@ -3248,7 +3248,7 @@ class CmController extends Controller
           	<td></td>
           </tr>';
         }
-        $outputinvoice .= '
+        $outputinvoice .= '                
                 </tbody>
             </table>';
         echo json_encode(["invoiceoutput" => $outputinvoice]);
@@ -3368,7 +3368,7 @@ class CmController extends Controller
                       <th style="text-align: left;">Email Sent</th>
                       <th style="text-align: left;">When the Task is Marked Complete</th>
                   </tr>
-                </thead>
+                </thead>                            
                 <tbody>';
         $i = 1;
         if (count($payrolllist)) {
@@ -3419,7 +3419,7 @@ class CmController extends Controller
         if ($i == 1) {
             $output .= '<tr><td colspan="5" align="center">Empty</td></tr>';
         }
-        $output .= '
+        $output .= '                
                 </tbody>
             </table>';
         echo $output;
@@ -3613,7 +3613,7 @@ class CmController extends Controller
                     '<tr>
 				<td>' .
                     $ibank .
-                    '</td>
+                    '</td>				
 				<td>' .
                     $bank->bank_name .
                     '</td>
@@ -3662,13 +3662,13 @@ class CmController extends Controller
                         $client_details->firstname .
                         " " .
                         $client_details->surname .
-                        '<br/>
+                        '<br/>  
 			                ' .
                         $client_details->company .
-                        '<br/>
+                        '<br/>  
 			                ' .
                         $client_details->address1 .
-                        '<br/>
+                        '<br/>  
 			                ' .
                         $client_details->address2 .
                         '<br/>
@@ -3684,7 +3684,7 @@ class CmController extends Controller
 					                Sort Code: 93-72-23<br/>
 					                VAT Number: 9754009E<br/>
 					                Company Number: 485123
-					            </div>
+					            </div>	                 
 			                  <div class="account_details_invoice_div">
 			                    <div class="account_table">
 			                      <div class="account_row">
@@ -3744,7 +3744,7 @@ class CmController extends Controller
                         $bo_row2_add_zero = "";
                     }
                     $row2 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->g_row2) .
                         '</div>
@@ -3765,7 +3765,7 @@ class CmController extends Controller
                         $bp_row3_add_zero = "";
                     }
                     $row3 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->h_row3) .
                         '</div>
@@ -3786,7 +3786,7 @@ class CmController extends Controller
                         $bq_row4_add_zero = "";
                     }
                     $row4 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->i_row4) .
                         '</div>
@@ -3807,7 +3807,7 @@ class CmController extends Controller
                         $br_row5_add_zero = "";
                     }
                     $row5 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->j_row5) .
                         '</div>
@@ -3828,7 +3828,7 @@ class CmController extends Controller
                         $bs_row6_add_zero = "";
                     }
                     $row6 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->k_row6) .
                         '</div>
@@ -3849,7 +3849,7 @@ class CmController extends Controller
                         $bt_row7_add_zero = "";
                     }
                     $row7 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->l_row7) .
                         '</div>
@@ -3870,7 +3870,7 @@ class CmController extends Controller
                         $bu_row8_add_zero = "";
                     }
                     $row8 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->m_row8) .
                         '</div>
@@ -3891,7 +3891,7 @@ class CmController extends Controller
                         $bv_row9_add_zero = "";
                     }
                     $row9 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->n_row9) .
                         '</div>
@@ -3912,7 +3912,7 @@ class CmController extends Controller
                         $bw_row10_add_zero = "";
                     }
                     $row10 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->o_row10) .
                         '</div>
@@ -3933,7 +3933,7 @@ class CmController extends Controller
                         $bx_row11_add_zero = "";
                     }
                     $row11 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->p_row11) .
                         '</div>
@@ -3954,7 +3954,7 @@ class CmController extends Controller
                         $by_row12_add_zero = "";
                     }
                     $row12 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->q_row12) .
                         '</div>
@@ -3975,7 +3975,7 @@ class CmController extends Controller
                         $bz_row13_add_zero = "";
                     }
                     $row13 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->r_row13) .
                         '</div>
@@ -3996,7 +3996,7 @@ class CmController extends Controller
                         $ca_row14_add_zero = "";
                     }
                     $row14 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->s_row14) .
                         '</div>
@@ -4017,7 +4017,7 @@ class CmController extends Controller
                         $cb_row15_add_zero = "";
                     }
                     $row15 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->t_row15) .
                         '</div>
@@ -4038,7 +4038,7 @@ class CmController extends Controller
                         $cc_row16_add_zero = "";
                     }
                     $row16 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->u_row16) .
                         '</div>
@@ -4059,7 +4059,7 @@ class CmController extends Controller
                         $cd_row17_add_zero = "";
                     }
                     $row17 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->v_row17) .
                         '</div>
@@ -4080,7 +4080,7 @@ class CmController extends Controller
                         $ce_row18_add_zero = "";
                     }
                     $row18 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->w_row18) .
                         '</div>
@@ -4101,7 +4101,7 @@ class CmController extends Controller
                         $cf_row19_add_zero = "";
                     }
                     $row19 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->x_row19) .
                         '</div>
@@ -4122,7 +4122,7 @@ class CmController extends Controller
                         $cg_row20_add_zero = "";
                     }
                     $row20 =
-                        '
+                        '            	
 		                  <div class="class_row_td left">' .
                         str_replace(" ", "&nbsp;", $invoice_details->y_row20) .
                         '</div>
@@ -4180,7 +4180,7 @@ class CmController extends Controller
                     ');
 				        background-position: top left right bottom;
 					    background-repeat: no-repeat;
-					    font-family: Verdana,Geneva,sans-serif;
+					    font-family: Verdana,Geneva,sans-serif; 
 				    }
 				    .tax_table_div{width: 100%; margin-top:-30px}
 		            .tax_table{margin-left:73%;width: 20%;}
@@ -4700,7 +4700,7 @@ class CmController extends Controller
             URL::to("user/ta_allocation?client_id=" . $client_id) .
             '" style="padding:10px; text-decoration:none;">
 		<i class="fa fa-clock-o" title="TA System" aria-hidden="true"></i>
-		</a></div>
+		</a></div> 
 		<div style="display:inline-flex;"><a class="quick_links" href="' .
             URL::to(
                 "user/rct_client_manager/" .
@@ -4710,22 +4710,22 @@ class CmController extends Controller
             ) .
             '" style="padding:10px; text-decoration:none;">
 		<i class="fa fa-university" title="RCT Manager" aria-hidden="true"></i>
-		</a></div>
+		</a></div>  
 		<div style="display:inline-flex;"><a class="quick_links" href="' .
             URL::to("user/client_management?client_id=" . $client_id) .
             '" style="padding:10px; text-decoration:none;">
 		<i class="fa fa-users" title="Client Management System" aria-hidden="true"></i>
-		</a></div>
+		</a></div>      
 		<div style="display:inline-flex;"><a class="quick_links" href="' .
             URL::to("user/client_request_manager/" . $encode_client_id) .
             '" style="padding:10px; text-decoration:none;">
 		<i class="fa fa-envelope" title="Clinet Request System" aria-hidden="true"></i>
-		</a></div>
+		</a></div>      
 		<div style="display:inline-flex;"><a class="quick_links" href="' .
             URL::to("user/infile_search?client_id=" . $client_id) .
             '" style="padding:10px; text-decoration:none;">
 		<i class="fa fa-file-archive-o" title="Infile" aria-hidden="true"></i>
-		</a></div>
+		</a></div>    
 		<div style="display:inline-flex;"><a class="quick_links" href="' .
             URL::to("user/key_docs?client_id=" . $client_id) .
             '" style="padding:10px; text-decoration:none;">
@@ -4746,7 +4746,7 @@ class CmController extends Controller
     }
     public function client_checkemail(Request $request) {
         $id = $request->get('id');
-        $email = $request->get('email');
+        $email = $request->get('email');    
         if($id != "")
         {
             $validate = \App\Models\CMClients::where('practice_code',Session::get('user_practice_code'))->where('email',$email)->where('client_id','!=', $id)->count();
